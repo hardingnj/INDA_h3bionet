@@ -39,11 +39,24 @@ cd
 # create a directory that will contain all of your analysis data and code
 mkdir h3bionet
 
+# and change directory to the directory we have just created
+cd h3bionet
+
 # copy all of your files to this directory
+# NOTE: If you prefer you can do this via the file explorer.
 cp pf3k_release_5_metadata.txt .
 cp comparative_genomics.R .
 
 # now create a new "run_pipeline.sh" script 
+```
+
+You should now have a directory on a linux machine containing: 
+
+- your metadata file
+- your R analysis script
+- your (empty) pipeline script
+
+
 
 
 
