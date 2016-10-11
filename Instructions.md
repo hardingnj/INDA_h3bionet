@@ -3,7 +3,9 @@
 To investigate the variation present in African vs Asian strains of plasmodium falciparum. We will focus on the kelch13 gene. We hopeto answer the following specific questions:
 
 a) Are samples from The Gambia more similar to Senegal or Malawi?
+
 b) Is there more diversity in African or Asian populations?
+
 c) Are the samples from unknown countries more similar to African or Asian populations?
 
 ## Day 1
