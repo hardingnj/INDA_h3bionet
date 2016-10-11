@@ -1,0 +1,14 @@
+refFASTA: ACGTGTGCGAGTCGCTGATCGAT
+sa1FASTQ:     GTGCGAGTCTCTG     
+sa2FASTQ:  CTTGTGC
+sa3FASTQ:  CATGTGC
+sa3FASTQ:  CATGTGCGAGTC
+sa4FASTQ:  CGTGTGCGAGTC
+
+## AC = Allele count
+## GT = Genotype
+
+CHROM POS REF ALT  QUAL FILTER INFO           FORMAT  sa1  sa2  sa3  sa4
+1     3   G   T,A  .    .      TD=3;AC=0,1,2  GT      ./.  1/1  2/2  0/0
+1     14  G   T
+
