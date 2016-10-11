@@ -24,13 +24,6 @@ a. Position
 b. Variant type is SNP 
 c. Quality
 
-The first task is to install tabix and vcf lib. First please read the introduction into the two tools at:
-- http://www.htslib.org/doc/tabix.html
-- https://github.com/vcflib/vcflib
-
-Task: see if you can find the two vcflib commands we will be using to filter the vcf file and convert it to text format. 
-
-Both of these tools must be installed on linux. Both are written in C, and so need to be compiled. This means transforming the code wecan understand into some instructions that the computer can understand. It is very inefficient for a computer to read the code like we do. 
 
 As a first step, get onto a linux terminal and create the following directory structure:
 
@@ -61,6 +54,8 @@ You should now have a directory on a linux machine containing:
 
 The next step is to install our software. We are fortunate that both `vcflib` and `tabix` are avavailable in bioconda- a package manager for bioinformatics- this should save us lots of work. 
 
+Both of these tools must be installed on linux. Both are written in C, and so need to be compiled. This means transforming the code wecan understand into some instructions that the computer can understand. It is very inefficient for a computer to read the code like we do. 
+
 First, we need to install miniconda. Find out whether you have a 32 or 64 bit system. (hint: use google).
 
 When you know this, go to http://conda.pydata.org/miniconda.html, and choose the corresponding installer (Use python 3.5). The file you download will be called something like `Miniconda3-latest-Linux-x86_64.sh`.
@@ -88,13 +83,20 @@ and:
 `tabix -h`
 
 
+### Task 1: 
+see if you can find the two vcflib commands we will be using to filter the vcf file and convert it to text format. 
 
-`conda create --name pf3kanalysis --channel bioconda htslib`
+### Task 2:
+Create a directory named `output` in your h3bionet directory
 
+###Task 3: 
+A: Using tabix create a new vcf file in the output directory, containing only positions in kelch13. This file should be called `kelch13_variants.vcf`.
 
-`conda create --name pf3kanalysis --channel bioconda vcflib`
+B: Compress this file using bgzip
 
+C: Index this file using tabix
 
+Put the commands A, B, and C in your `run_pipeline.sh` file. Delete all the files in `output`, and recreate them using `bash run_pipeline.sh`.
 
 
 
