@@ -28,6 +28,8 @@ The first task is to install tabix and vcf lib. First please read the introducti
 - http://www.htslib.org/doc/tabix.html
 - https://github.com/vcflib/vcflib
 
+Task: see if you can find the two vcflib commands we will be using to filter the vcf file and convert it to text format. 
+
 Both of these tools must be installed on linux. Both are written in C, and so need to be compiled. This means transforming the code wecan understand into some instructions that the computer can understand. It is very inefficient for a computer to read the code like we do. 
 
 As a first step, get onto a linux terminal and create the following directory structure:
@@ -56,23 +58,11 @@ You should now have a directory on a linux machine containing:
 - your R analysis script
 - your (empty) pipeline script
 
+## Day 3
 
+Today we will start comparative genomics!
 
+Parse the vcf data, into tsv format using vcf lib.
 
-
-
-
-
-
-
-
-
-
-
-
-
-3. Parse the vcf data, extracting positions. Use vcf-lib. YASSINE's computer.
-4. Parse the vcf data, extracting genotypes
-5. Read 3 and 4 into R.
-
+Load data into R
 
