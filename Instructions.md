@@ -43,20 +43,65 @@ mkdir h3bionet
 
 # and change directory to the directory we have just created
 cd h3bionet
+mkdir data
 
-# copy all of your files to this directory
+# copy all of your *data* files to this directory
 # NOTE: If you prefer you can do this via the file explorer.
-cp pf3k_release_5_metadata.txt .
-cp comparative_genomics.R .
 
-# now create a new "run_pipeline.sh" script 
+# follow the structure I have created in: https://github.com/hardingnj/INDA_h3bionet
+# now move your R script files to the INDA_h3bionet directory
+# create a new bash script (run_pipeline.sh) in this directory
 ```
-
 You should now have a directory on a linux machine containing: 
 
-- your metadata file
+- your metadata file in "data"
 - your R analysis script
 - your (empty) pipeline script
+
+
+The next step is to install our software. We are fortunate that both `vcflib` and `tabix` are avavailable in bioconda- a package manager for bioinformatics- this should save us lots of work. 
+
+First, we need to install miniconda. Find out whether you have a 32 or 64 bit system. (hint: use google).
+
+When you know this, go to http://conda.pydata.org/miniconda.html, and choose the corresponding installer (Use python 3.5). The file you download will be called something like `Miniconda3-latest-Linux-x86_64.sh`.
+
+Run the script, and follow the prompts:
+`bash Miniconda3-latest-Linux-x86_64.sh`
+
+If this installed correctly we can use conda to create a new environment:let's call this pf3kanalysis:
+
+`conda create --name pf3kanalysis --channel bioconda htslib`
+
+Now we need to activate our environment:
+
+`source activate pf3kanalysis`
+
+Now install `vcflib` as well:
+
+`conda install --channel bioconda vcflib`
+
+Test this has worked:
+`vcffilter -h`
+
+and:
+
+`tabix -h`
+
+
+
+`conda create --name pf3kanalysis --channel bioconda htslib`
+
+
+`conda create --name pf3kanalysis --channel bioconda vcflib`
+
+
+
+
+
+
+
+
+
 
 ## Day 3
 
