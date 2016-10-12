@@ -89,6 +89,8 @@ see if you can find the two vcflib commands we will be using to filter the vcf f
 ### Task 2:
 Create a directory named `output` in your h3bionet directory
 
+## Day 3
+
 ###Task 3: 
 A: Using tabix create a new vcf file in the output directory, containing only positions in kelch13. This file should be called `kelch13_variants.vcf`.
 
@@ -96,7 +98,11 @@ B: Compress this file using bgzip
 
 C: Index this file using tabix
 
-Put the commands A, B, and C in your `run_pipeline.sh` file. Delete all the files in `output`, and recreate them using `bash run_pipeline.sh`.
+D: Put the commands A, B, and C in your `run_pipeline.sh` file. Delete all the files in `output`, and recreate them using `bash run_pipeline.sh`. Congratulations- you have run your first pipeline!
+
+E: In the github repository there is my `run_pipeline.sh` file. Copy the commands to filter variants by type and quality into your script. Try to understand what each step is doing!
+
+Now you should be able to run `bash run_pipeline.sh` from your `h3bionet` directory, and generate all the data files.
 
 
 
@@ -104,8 +110,6 @@ Put the commands A, B, and C in your `run_pipeline.sh` file. Delete all the file
 
 
 
-
-## Day 3
 
 Today we will start comparative genomics!
 
