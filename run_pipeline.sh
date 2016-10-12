@@ -15,6 +15,7 @@ tabix -p vcf output/kelch13_variants_filtered.vcf.gz
 echo "Done filtering by type and quality"
 
 vcfkeepgeno output/kelch13_variants_filtered.vcf.gz GT \
+  | vcfkeepinfo - AC SNPEFF_FUNCTIONAL_CLASS SNPEFF_EFFECT SNPEFF_IMPACT \
   | vcf2tsv -g \
   | bgzip > output/kelch13_variants_filtered.tsv.gz
 
