@@ -104,16 +104,30 @@ E: In the github repository there is my `run_pipeline.sh` file. Copy the command
 
 Now you should be able to run `bash run_pipeline.sh` from your `h3bionet` directory, and generate all the data files.
 
+## Task 4
 
+Now we can start some comparative genomics!
 
+First load the `kelch13_variants.tsv.gz` into R. Notice the data is in long format, we will later need to reshape this.  
 
+P. falciparum is a haploid organism, why do we see heterozygote calls?
 
+Create a new variable which is a numeric representation of the genotype:
 
+`numeric_GT <- ifelse(f$GT == "0/0", 0, ifelse(f$GT == "./.", -1, 1))`
 
+How are we treating the heterozygote calls vs the homozygous alt calls?
 
-Today we will start comparative genomics!
+Replace the "GT" field in the data with this vector.
 
-Parse the vcf data, into tsv format using vcf lib.
+Now we need to reshape the data. We use the `reshape2` package, which you will need to install.
 
-Load data into R
+`gt <- acast(f, POS ~ SAMPLE, value.var="GT")`
+
+This object is your genotype matrix. We can use this to calculate distances between samples.
+
+Tasks:
+
+- how many variants in each sample are missing? Plot a histogram.
+- write a function that takes two genotype vectors and counts the number of differences between them. 
 
