@@ -94,7 +94,7 @@ Create a directory named `output` in your h3bionet directory
 ###Task 3: 
 A: Using tabix create a new vcf file in the output directory, containing only positions in kelch13. This file should be called `kelch13_variants.vcf`.
 
-B: Compress this file using bgzip
+B: Compress this file using bgzip. What is the file size before and after compression? (`ls -lah`).
 
 C: Index this file using tabix
 
