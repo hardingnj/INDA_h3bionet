@@ -1,15 +1,6 @@
 library(reshape2)
 library(ape)
-options(expressions= 100000)
-
-### FUNCTION DEFINITIONS ########################
-hamming_distance <- function(a, b){
-
-  missing <- (a == -1)|(b == -1)
-  d <- sum((a == b) & (!missing))
-
-  return(d/sum(!missing)) 
-}
+options(expressions=100000)
 
 ### LOAD GENOTYPE DATA ###########################
 data <- read.table(
@@ -24,6 +15,7 @@ numeric_GT <- ifelse(
 data$GTn <- numeric_GT
 
 print("done loading data")
+
 # Reshape data to genotype matrix
 gt <- acast(data, POS ~ SAMPLE, value.var="GTn")
 nsamples <- dim(gt)[2]
@@ -40,7 +32,7 @@ meta <- read.table(
 asian_countries <- c("Bangladesh", "Cambodia", "Laos", "Myanmar", "Thailand", "Vietnam")
 meta$Continent <- ifelse(meta$country %in% asian_countries, "Asia", "Africa")
 
-
+# Determine missingness in samples
 missing = apply(gt, MARGIN=2, function(x){ sum(is.na(x))})
 pdf("output/plot.pdf")
 hist(missing)
@@ -61,4 +53,7 @@ ape::plot.phylo(njt, type="unr", show.tip.label=T,edge.width=0.1)
 
 # Again, with colour
 gt_filt_cont <- meta[rownames(gt_filtered),]$Continent
+branch_col <- ifelse(gt_filt_cont == "Africa", "green", "red")
 ape::plot.phylo(njt, type="unr", show.tip.label=F,edge.width=0.1, edge.color=branch_col)
+
+dev.off()
