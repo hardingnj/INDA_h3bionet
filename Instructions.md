@@ -122,12 +122,18 @@ Replace the "GT" field in the data with this vector.
 
 Now we need to reshape the data. We use the `reshape2` package, which you will need to install.
 
-`gt <- acast(f, POS ~ SAMPLE, value.var="GT")`
+`gt <- acast(f, POS ~ SAMPLE, value.var="GT", fill="./.")`
 
 This object is your genotype matrix. We can use this to calculate distances between samples.
 
 Tasks:
 
 - how many variants in each sample are missing? Plot a histogram.
-- write a function that takes two genotype vectors and counts the number of differences between them. 
+- write a function that takes two genotype vectors and counts the number of differences between them. Divide the result by the number of SNPs to give us a value between 0 and 1.
+- what about missing values? How shall we compare a missing value to a non missing value?
+- create a distance matrix using the `matrix` function. It should have rows and columns equal to the number of samples. Each cell [row i, column j] will contain the distance between sample i and sample j. What will the values be of the diagonal?  
+- create a loop that fills in each value of your distance matrix.
+
+
+
 
