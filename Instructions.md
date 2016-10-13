@@ -147,7 +147,11 @@ Something else you notice, is that kelch13 is a small gene, and doesn't contain 
 
 Now, it would be really nice to have some colour- we need to pass the plot a colour vector. Let's colour by continent- Africa in green and Asia in red.
 
+You will need to load the metadata into your R session, and keep all rows this time. Do not exclude the laboratory samples.
+
 `gt_filt_continent <- meta[rownames(filtered_GT)]$Continent`
-`colour <- ifelse(gt_filt_continent == "Africa", "green", "red")
-`ape::plot.phylo(njt, type="unr", show.tip.label=F,edge.width=0.1)`
+
+`colour <- ifelse(gt_filt_continent == "Africa", "green", "red")`
+
+`ape::plot.phylo(njt, type="unr", show.tip.label=F, edge.width=0.1, edge.col=colour)`
 
