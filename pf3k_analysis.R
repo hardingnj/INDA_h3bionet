@@ -1,3 +1,7 @@
+library(reshape2)
+library(ape)
+options(expressions= 100000)
+
 ### FUNCTION DEFINITIONS ########################
 hamming_distance <- function(a, b){
 
@@ -15,34 +19,46 @@ data <- read.table(
 
 numeric_GT <- ifelse(
   data$GT == "0/0", 0, 
-  ifelse(data$GT == "./.", -1, 1))
+  ifelse(data$GT == "./.", NA, 1))
 
-data$GT <- numeric_GT
+data$GTn <- numeric_GT
 
+print("done loading data")
+# Reshape data to genotype matrix
+gt <- acast(data, POS ~ SAMPLE, value.var="GTn")
 nsamples <- dim(gt)[2]
 nvariants <- dim(gt)[1]
+print("done reshaping data")
 
-# Reshape data to genotype matrix
-gt <- acast(data, POS ~ SAMPLE, value.var="GT")
+### READ METADATA #########################
+meta <- read.table(
+  "data/pf3k_release_5_metadata.txt", 
+  sep="\t", 
+  header=T, 
+  row.names=1)
 
-missing = apply(gt, MARGIN=2, function(x){ sum(x == -1)})
+asian_countries <- c("Bangladesh", "Cambodia", "Laos", "Myanmar", "Thailand", "Vietnam")
+meta$Continent <- ifelse(meta$country %in% asian_countries, "Asia", "Africa")
+
+
+missing = apply(gt, MARGIN=2, function(x){ sum(is.na(x))})
 pdf("output/plot.pdf")
 hist(missing)
 ok_missing = missing < 30
 
 # Compute distance matrix
-dist_matrix <- matrix(nrow=nsamples, ncol=nsamples)
-rownames(dist_matrix) <- colnames(dist_matrix) <-  colnames(gt)
+gt_ok <- t(gt[,ok_missing])
+distance_matrix = dist(x=gt_ok, method="manhattan")
+njt <- ape::nj(distance_matrix)
+ape::plot.phylo(njt, type="unr", show.tip.label=T,edge.width=0.1)
 
-for (i in 1:nsamples){
-  for (j in i:nsamples){
-    di <- hamming_distance(gt[, i], gt[, j])
-    dist_matrix[i, j] = di
-    dist_matrix[j, i] = di
-  }
-}
+# Again, but excludesome samples
+exclude_samples <- rownames(gt_ok) %in% c("PF0345-C", "PA0190-C", "PT0154-C", "PT0154-Cx")
+gt_filtered <- gt_ok[!exclude_samples, ]
+distance_matrix = dist(x=gt_filtered, method="manhattan")
+njt <- ape::nj(distance_matrix)
+ape::plot.phylo(njt, type="unr", show.tip.label=T,edge.width=0.1)
 
-rdm <- dist_matrix[ok_missing, ok_missing]
-
-hist(rdm[,1])
-dev.off()
+# Again, with colour
+gt_filt_cont <- meta[rownames(gt_filtered),]$Continent
+ape::plot.phylo(njt, type="unr", show.tip.label=F,edge.width=0.1, edge.color=branch_col)

@@ -1,8 +1,10 @@
 echo "Welcome to the comparative genomics pipeline"
+set -e
+mkdir output
 source activate pf3kanalysis
 
 tabix -h data/SNP_INDEL_Pf3D7_13_v3.combined.filtered.INDA.vcf.gz \
-  Pf3D7_13_v3:1724817-1726997 | bgzip > output/kelch13_variants.vcf.gz
+  Pf3D7_13_v3:1720000-1730000 | bgzip > output/kelch13_variants.vcf.gz
 
 tabix -p vcf output/kelch13_variants.vcf.gz
 
