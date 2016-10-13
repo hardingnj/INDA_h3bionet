@@ -133,7 +133,6 @@ Tasks:
 - what about missing values? How shall we compare a missing value to a non missing value?
 - create a distance matrix using the `matrix` function. It should have rows and columns equal to the number of samples. Each cell [row i, column j] will contain the distance between sample i and sample j. What will the values be of the diagonal?  
 - create a loop that fills in each value of your distance matrix.
-
-
+- What is the average distance between Gambian samples and Malwian samples?
 
 
