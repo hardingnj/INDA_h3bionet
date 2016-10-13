@@ -104,17 +104,18 @@ E: In the github repository there is my `run_pipeline.sh` file. Copy the command
 
 Now you should be able to run `bash run_pipeline.sh` from your `h3bionet` directory, and generate all the data files.
 
-## Task 4
+## Day 3
+### Task 4
 
 Now we can start some comparative genomics!
 
 First load the `kelch13_variants.tsv.gz` into R. Notice the data is in long format, we will later need to reshape this.  
 
-P. falciparum is a haploid organism, why do we see heterozygote calls?
+*P. falciparum* is a haploid organism, why do we see heterozygote calls?
 
 Create a new variable which is a numeric representation of the genotype:
 
-`numeric_GT <- ifelse(f$GT == "0/0", 0, ifelse(f$GT == "./.", -1, 1))`
+`numeric_GT <- ifelse(f$GT == "0/0", 0, ifelse(f$GT == "./.", NA, 1))`
 
 How are we treating the heterozygote calls vs the homozygous alt calls?
 
@@ -122,17 +123,21 @@ Replace the "GT" field in the data with this vector.
 
 Now we need to reshape the data. We use the `reshape2` package, which you will need to install.
 
-`gt <- acast(f, POS ~ SAMPLE, value.var="GT", fill="./.")`
+`gt <- acast(f, POS ~ SAMPLE, value.var="GT", fill=NA)`
 
 This object is your genotype matrix. We can use this to calculate distances between samples.
 
 Tasks:
 
 - how many variants in each sample are missing? Plot a histogram.
-- write a function that takes two genotype vectors and counts the number of differences between them. Divide the result by the number of SNPs to give us a value between 0 and 1.
-- what about missing values? How shall we compare a missing value to a non missing value?
-- create a distance matrix using the `matrix` function. It should have rows and columns equal to the number of samples. Each cell [row i, column j] will contain the distance between sample i and sample j. What will the values be of the diagonal?  
-- create a loop that fills in each value of your distance matrix.
-- What is the average distance between Gambian samples and Malwian samples?
+- First, we need to drop some samples... create a boolean vector `missing_ok` that is True if a sample has fewer than 30 missing values.
+- Create a new variable `gt_ok` from `gt` that is transposed AND excludes samples with many missing values using `missing_ok`.
+- Create a distance matrix using the `dist()` function. Use the `manhattan` method to calculate distance. 
 
+```
+dm = dist(x=gt_ok, method="manhattan")
+njt <- ape::nj(dm)
+ape::plot.phylo(njt, type="unr", show.tip.label=T,edge.width=0.1)
+```
+What do you see?
 
