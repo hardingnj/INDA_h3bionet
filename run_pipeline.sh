@@ -4,7 +4,7 @@ mkdir output
 source activate pf3kanalysis
 
 tabix -h data/SNP_INDEL_Pf3D7_13_v3.combined.filtered.INDA.vcf.gz \
-  Pf3D7_13_v3:1720000-1730000 | bgzip > output/kelch13_variants.vcf.gz
+  Pf3D7_13_v3:1700000-1750000 | bgzip > output/kelch13_variants.vcf.gz
 
 tabix -p vcf output/kelch13_variants.vcf.gz
 
@@ -22,3 +22,4 @@ vcfkeepgeno output/kelch13_variants_filtered.vcf.gz GT \
   | bgzip > output/kelch13_variants_filtered.tsv.gz
 
 echo "Done converting to text format"
+Rscript pf3k_analysis.R

@@ -54,6 +54,6 @@ ape::plot.phylo(njt, type="unr", show.tip.label=T,edge.width=0.1)
 # Again, with colour
 gt_filt_cont <- meta[rownames(gt_filtered),]$Continent
 branch_col <- ifelse(gt_filt_cont == "Africa", "green", "red")
-ape::plot.phylo(njt, type="unr", show.tip.label=F,edge.width=0.1, edge.color=branch_col)
+ape::plot.phylo(njt, type="fan", show.tip.label=F,edge.width=0.1, edge.color=branch_col)
 
 dev.off()
