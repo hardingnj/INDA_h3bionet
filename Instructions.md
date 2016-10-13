@@ -141,3 +141,13 @@ ape::plot.phylo(njt, type="unr", show.tip.label=T,edge.width=0.1)
 ```
 What do you see?
 
+Someone tells you that there are some problems with samples PF0345-C, PA0190-C PT0154-Cx & PT0154-C. Exclude them, and recreate the distance matrix and tree plot.
+
+Something else you notice, is that kelch13 is a small gene, and doesn't contain enough SNPs to separate populations meaningfully! Increase the size of the window we are using, I suggest `1720000-1730000`.
+
+Now, it would be really nice to have some colour- we need to pass the plot a colour vector. Let's colour by continent- Africa in green and Asia in red.
+
+`gt_filt_continent <- meta[rownames(filtered_GT)]$Continent`
+`colour <- ifelse(gt_filt_continent == "Africa", "green", "red")
+`ape::plot.phylo(njt, type="unr", show.tip.label=F,edge.width=0.1)`
+
